@@ -1,5 +1,8 @@
 <script setup>
     import { onMounted, ref } from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
     
     let form = ref([]);
     let allCustomers = ref([]);
@@ -77,7 +80,7 @@
 
             const formData = new FormData();
             formData.append('invoice_item', JSON.stringify(listCart.value));
-            formData.append('customer_id', customer_id.value);
+            formData.append('customer_id', customerId.value);
             formData.append('date', form.value.date);
             formData.append('due_date', form.value.due_date);
             formData.append('number', form.value.number);
@@ -85,14 +88,13 @@
             formData.append('discount', form.value.discount);
             formData.append('subtotal', subTotal);
             formData.append('total', total);
-            formData.append('terms_and_conditions', form.value.term_and_conditions);
+            formData.append('terms_and_conditions', form.value.terms_and_conditions);
 
-            axios.post('/api/add_invoice', formData);
+            axios.post('/api/add-invoice?XDEBUG_SESSION_START=VSCODE', formData);
             listCart.value = [];
             router.push('/');
         }
     }
-
 </script>
 
 <template>
@@ -169,7 +171,7 @@
             <div class="table__footer">
                 <div class="document-footer">
                     <p>Terms and Conditions</p>
-                    <textarea cols="50" rows="7" class="textarea">{{ form.term_and_conditions }}</textarea>
+                    <textarea cols="50" rows="7" class="textarea" v-model="form.terms_and_conditions"></textarea>
                 </div>
                 <div>
                     <div class="table__footer--subtotal">

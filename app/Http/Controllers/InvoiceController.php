@@ -50,7 +50,7 @@ class InvoiceController extends Controller
             'due_date' => null,
             'reference' => null,
             'discount' => 0,
-            'term_and_conditions' => 'Default Terms and Conditions',
+            'terms_and_conditions' => 'Default Terms and Conditions',
             'items' => [
                 [
                     'product_id' => null,
@@ -67,11 +67,11 @@ class InvoiceController extends Controller
         $invoiceItem = $request->input('invoice_item');
         $invoiceData['sub_total'] = $request->input('subtotal');
         $invoiceData['total'] = $request->input('total');
-        $invoiceData['customer_id'] = $request->input('subtotal');
-        $invoiceData['number'] = $request->input('subtotal');
-        $invoiceData['date'] = $request->input('subtotal');
-        $invoiceData['due_date'] = $request->input('subtotal');
-        $invoiceData['discount'] = $request->input('subtotal');
+        $invoiceData['customer_id'] = $request->input('customer_id');
+        $invoiceData['number'] = $request->input('number');
+        $invoiceData['date'] = $request->input('date');
+        $invoiceData['due_date'] = $request->input('due_date');
+        $invoiceData['discount'] = $request->input('discount');
         $invoiceData['reference'] = $request->input('reference');
         $invoiceData['terms_and_conditions'] = $request->input('terms_and_conditions');
 
