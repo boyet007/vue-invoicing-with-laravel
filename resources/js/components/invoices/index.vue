@@ -12,7 +12,7 @@
     });
 
     const getInvoices = async () => {
-        let response = await axios.get('/api/get_all_invoices');
+        let response = await axios.get('/api/get-all-invoices');
         invoices.value = response.data.invoices;
     }
 
