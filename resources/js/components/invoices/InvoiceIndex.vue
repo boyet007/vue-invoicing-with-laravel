@@ -1,21 +1,32 @@
 <script setup>
     import { onMounted, ref } from 'vue';
+    import { useRouter } from 'vue-router';
+
     let invoices = ref([]);
     let searchInvoice = ref([]);
+
+    const router = useRouter();
 
     onMounted(async () => {
         getInvoices();
     });
 
-    const getInvoices = async() => {
+    const getInvoices = async () => {
         let response = await axios.get('/api/get_all_invoices');
-        console.log(response)
         invoices.value = response.data.invoices;
     }
 
-    const search = async() => {
-        let response = await.axios.get('/api/search_invoices?s=' + searchInvoice.value);
+    const search = async () => {
+        let response = await axios.get(`/api/search_invoice?s=${searchInvoice.value}`);
+        invoices.value = response.data.invoices
     }
+
+    const newInvoice = async () => {
+        let form = await axios.get(`/api/create_invoice`);
+        console.log('form', form.data);
+        router.push('/invoice/new');
+    };
+
 </script>
 
 <template>
@@ -26,7 +37,7 @@
                     <h2 class="invoice__title">Invoices</h2>
                 </div>
                 <div>
-                    <a class="btn btn-secondary">
+                    <a class="btn btn-secondary" @click="newInvoice">
                         New Invoice
                     </a>
                 </div>
@@ -61,7 +72,7 @@
                     </div>
                     <div class="relative">
                         <i class="table--search--input--icon fas fa-search "></i>
-                        <input class="table--search--input" type="text" placeholder="Search invoice">
+                        <input class="table--search--input" type="text" placeholder="Search invoice" v-model="searchInvoice" @keyup="search()">
                     </div>
                 </div>
 
