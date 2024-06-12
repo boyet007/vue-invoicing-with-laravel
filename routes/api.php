@@ -16,3 +16,6 @@ Route::get('/search_invoice', [InvoiceController::class, 'searchInvoice']);
 Route::get('/create_invoice', [InvoiceController::class, 'createInvoice']);
 Route::get('/customers', [CustomerController::class, 'getAllCustomers']);
 Route::get('/products', [ProductController::class, 'getAllProducts']);
+Route::get('/show-invoice/{id}', [InvoiceController::class,'showInvoice']);
+Route::get('/edit-invoice/{id}', [InvoiceController::class,'editInvoice']);
+Route::get('/delete-invoice-items/{id}', [InvoiceController::class,'deleteInvoiceItems']);
