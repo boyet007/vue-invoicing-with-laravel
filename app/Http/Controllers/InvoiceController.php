@@ -106,9 +106,9 @@ class InvoiceController extends Controller
         $invoiceItem->delete();
     }
 
-    public function updateInvoiceItems(Request $request, $id) {
+    public function updateInvoice(Request $request, $id) {
         $invoice = Invoice::where('id', $id)->first();
-        $invoice->subTotal = $request->subTotal;
+        $invoice->sub_total = $request->sub_total;
         $invoice->total = $request->total;
         $invoice->customer_id = $request->customer_id;
         $invoice->number = $request->number;
@@ -120,7 +120,7 @@ class InvoiceController extends Controller
         $invoice->update($request->all());
 
         $invoiceItem = $request->input('invoice_items');
-        $invoice->invoice_items()->delete();
+        $invoice->invoiceItems()->delete();
 
         foreach(json_decode($invoiceItem) as $item) {
             $itemData['product_id'] = $item->product_id;
@@ -130,5 +130,11 @@ class InvoiceController extends Controller
 
             InvoiceItem::create($itemData);
         }
+    }
+
+    public function deleteInvoice($id) {
+        $invoice = Invoice::findOrfail($id);
+        $invoice->invoiceItems()->delete();
+        $invoice->delete();
     }
 }

@@ -64,7 +64,7 @@
         closeModal();
     }
 
-    const subTotal = () => {
+    const SubTotal = () => {
         let total = 0;
         if (form.value.invoice_items) {
             form.value.invoice_items.map((data) => {
@@ -74,9 +74,9 @@
         return total;
     }
 
-    const total = () => {
+    const Total = () => {
         if (form.value.invoice_items) {
-            return subTotal() - form.value.discount;
+            return SubTotal() - form.value.discount;
         }
     }
 
@@ -89,19 +89,19 @@
             total = Total();
 
             const formData = new FormData();
-            formData.append('invoice_item', JSON.stringify(form.value.invoice_items));
+            formData.append('invoice_items', JSON.stringify(form.value.invoice_items));
             formData.append('customer_id', form.value.customer_id);
             formData.append('date', form.value.date);
             formData.append('due_date', form.value.due_date);
             formData.append('number', form.value.number);
             formData.append('reference', form.value.reference);
             formData.append('discount', form.value.discount);
-            formData.append('subtotal', subTotal);
+            formData.append('sub_total', subTotal);
             formData.append('total', total);
             formData.append('terms_and_conditions', form.value.terms_and_conditions);
 
             axios.post(`/api/update-invoice/${form.value.id}`, formData);
-            listCart.value.invoice_items = [];
+            form.value.invoice_items = [];
             router.push('/');
         }
     }
@@ -191,7 +191,7 @@
                 <div>
                     <div class="table__footer--subtotal">
                         <p>Sub Total</p>
-                        <span>$ {{ subTotal() }}</span>
+                        <span>$ {{ SubTotal() }}</span>
                     </div>
                     <div class="table__footer--discount">
                         <p>Discount</p>
@@ -199,7 +199,7 @@
                     </div>
                     <div class="table__footer--total">
                         <p>Grand Total</p>
-                        <span>$ {{ total() }}</span>
+                        <span>$ {{ Total() }}</span>
                     </div>
                 </div>
             </div>

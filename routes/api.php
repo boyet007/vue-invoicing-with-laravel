@@ -20,3 +20,4 @@ Route::get('/show-invoice/{id}', [InvoiceController::class,'showInvoice']);
 Route::get('/edit-invoice/{id}', [InvoiceController::class,'editInvoice']);
 Route::get('/delete-invoice-items/{id}', [InvoiceController::class,'deleteInvoiceItems']);
 Route::post('/update-invoice/{id}', [InvoiceController::class, 'updateInvoice']);
+Route::get('/delete-invoice/{id}', [InvoiceController::class, 'deleteInvoice']);

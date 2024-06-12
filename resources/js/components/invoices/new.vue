@@ -90,7 +90,7 @@
             formData.append('total', total);
             formData.append('terms_and_conditions', form.value.terms_and_conditions);
 
-            axios.post('/api/add-invoice?XDEBUG_SESSION_START=VSCODE', formData);
+            axios.post('/api/add-invoice', formData);
             listCart.value = [];
             router.push('/');
         }
